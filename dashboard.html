@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - NewsPulse{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container mt-5">
+        <h2 class="mb-4 text-primary fw-bold">Welcome, {{ username }} 👋</h2>
+
+        <!-- Action Cards -->
+        <div class="row g-4">
+            <!-- Trending Topics Card -->
+            <div class="col-md-6">
+                <div class="auth-card h-100">
+                    <h5 class="card-title text-success fw-semibold">📈 Trending Topics</h5>
+                    <p class="card-text text-muted">Explore top news trends and discover what's making headlines now.</p>
+                    <a href="{{ url_for('main.trending') }}" class="btn btn-trending mt-2">View Trends</a>
+                </div>
+            </div>
+
+            <!-- Profile Settings Card -->
+            <div class="col-md-6">
+                <div class="auth-card h-100">
+                    <h5 class="card-title text-info fw-semibold">⚙️ Profile Settings</h5>
+                    <p class="card-text text-muted">Update your account information and preferences easily.</p>
+                    <a href="{{ url_for('main.profile') }}" class="btn btn-profile mt-2">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Row -->
+        <div class="row mt-4 g-4">
+            <div class="col-md-4">
+                <div class="auth-card text-center">
+                    <h6 class="text-secondary fw-semibold">Total Articles Analyzed</h6>
+                    <h3 class="text-primary fw-bold">{{ total_articles or 0 }}</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="auth-card text-center">
+                    <h6 class="text-secondary fw-semibold">Top Category</h6>
+                    <h3 class="text-success fw-bold">{{ top_category or "N/A" }}</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="auth-card text-center">
+                    <h6 class="text-secondary fw-semibold">Most Active Source</h6>
+                    <h3 class="text-info fw-bold">{{ top_source or "N/A" }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

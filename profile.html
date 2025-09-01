@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - NewsPulse{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5 auth-container">
+    <div class="col-md-6">
+        <div class="auth-card">
+            <h2 class="text-center mb-4 fw-bold">Edit Your Profile</h2>
+            <p class="text-center text-secondary mb-4">Update your account information below.</p>
+
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label fw-semibold">Username</label>
+                    <input type="text" class="form-control form-control-lg" id="username" name="username" value="{{ current_user.username }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold">Email</label>
+                    <input type="email" class="form-control form-control-lg" id="email" name="email" value="{{ current_user.email }}" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 btn-lg">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

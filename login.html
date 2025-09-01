@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - NewsPulse{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5 auth-container">
+    <div class="col-md-6">
+        <div class="auth-card">
+            <h2 class="text-center mb-4 fw-bold">Welcome Back! 🚀</h2>
+            <p class="text-center text-secondary mb-4">Login to access AI-powered news trend analysis.</p>
+
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('main.login') }}">
+                <div class="mb-3">
+                    <label for="login_id" class="form-label fw-semibold">Email or Username</label>
+                    <input type="text" class="form-control form-control-lg" id="login_id" name="login_id" placeholder="Enter email or username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-semibold">Password</label>
+                    <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 btn-lg">Login</button>
+            </form>
+
+            <p class="mt-4 text-center text-secondary">
+                Don’t have an account? <a href="{{ url_for('main.register') }}">Register here</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

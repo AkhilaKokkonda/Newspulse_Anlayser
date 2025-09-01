@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% block title %}Trending News - NewsPulse{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="text-center mb-4">📊 Trending News Analysis</h2>
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Filter Form -->
+  <form method="POST" class="row g-3 mb-4">
+    <div class="col-md-3">
+      <input type="text" class="form-control" name="keyword" placeholder="Search keyword">
+    </div>
+    <div class="col-md-3">
+      <select name="interested_area" class="form-control">
+        <option value="None">All</option>
+        <option value="world">World</option>
+        <option value="nation">Nation</option>
+        <option value="business">Business</option>
+        <option value="technology">Technology</option>
+        <option value="entertainment">Entertainment</option>
+        <option value="sports">Sports</option>
+        <option value="science">Science</option>
+        <option value="health">Health</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select class="form-control" name="country">
+        <option value="None">All Countries</option>
+        <option value="IN">India</option>
+        <option value="US">USA</option>
+        <option value="GB">UK</option>
+        <option value="AU">Australia</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-primary w-100">🔍 Filter</button>
+    </div>
+  </form>
+
+  <!-- Charts: Two per row -->
+  <div class="row mb-5">
+    <div class="col-md-6 mb-4">
+      <div class="chart-container">
+        <h5 class="text-center">Sentiment Analysis</h5>
+        <canvas id="sentimentChart"></canvas>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="chart-container">
+        <h5 class="text-center">Categories</h5>
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="chart-container">
+        <h5 class="text-center">Sources</h5>
+        <canvas id="sourceChart"></canvas>
+      </div>
+    </div>
+    <div class="col-md-6 mb-4">
+      <div class="chart-container">
+        <h5 class="text-center">Keyword Trends Over Time</h5>
+        <canvas id="lineChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trending News Cards Flexible Layout -->
+  <h3 class="mb-3">📰 Latest Trending Articles</h3>
+  <div class="d-flex flex-wrap gap-4 justify-content-start">
+    {% for article in articles %}
+    {% set border_color = "#c8d6e5" %}
+    {% if article.category %}
+      {% if article.category == "Business" %} {% set border_color = "#007bff" %}
+      {% elif article.category == "Technology" %} {% set border_color = "#17a2b8" %}
+      {% elif article.category == "Entertainment" %} {% set border_color = "#6f42c1" %}
+      {% elif article.category == "Sports" %} {% set border_color = "#28a745" %}
+      {% elif article.category == "Science" %} {% set border_color = "#fd7e14" %}
+      {% elif article.category == "Health" %} {% set border_color = "#dc3545" %}
+      {% elif article.category == "World" %} {% set border_color = "#343a40" %}
+      {% elif article.category == "Nation" %} {% set border_color = "#ffc107" %} {% endif %}
+    {% endif %}
+
+    <div class="card news-card" style="width: 300px; flex: 1 1 300px; border-top:4px solid {{ border_color }}">
+      {% if article.image %}
+        <img src="{{ article.image }}" class="card-img-top" alt="News Image" style="height:180px; object-fit:cover;">
+      {% endif %}
+      <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ article.title }}</h5>
+        <p class="card-text">{{ article.description|truncate(120) }}</p>
+
+        <p class="small text-muted">
+          <b>Source:</b> {{ article.source }} <br>
+          <b>Published:</b> {{ article.publishedAtIST }}
+        </p>
+
+        <!-- Sentiment with emoji and color -->
+        {% set sentiment_emoji = "" %}
+        {% set sentiment_color = "" %}
+        {% if article.sentiment == 'Positive' %}
+          {% set sentiment_emoji = "😊" %}
+          {% set sentiment_color = "#28a745" %}
+        {% elif article.sentiment == 'Neutral' %}
+          {% set sentiment_emoji = "😐" %}
+          {% set sentiment_color = "#ffc107" %}
+        {% elif article.sentiment == 'Negative' %}
+          {% set sentiment_emoji = "😞" %}
+          {% set sentiment_color = "#dc3545" %}
+        {% endif %}
+
+        <p class="small" style="font-weight:600; color:{{ sentiment_color }}">
+          <b>Sentiment:</b> {{ sentiment_emoji }} {{ article.sentiment }}
+        </p>
+
+        <!-- Top Keywords as badges -->
+        {% if article.keywords %}
+          <p class="small">
+            <b>Top Keywords:</b>
+            {% for keyword in article.keywords[:5] %}
+              <span class="badge bg-info text-dark">#{{ keyword }}</span>
+            {% endfor %}
+          </p>
+        {% endif %}
+
+        <!-- Entities -->
+        <p class="small">
+          <b>Entities:</b>
+          {% if article.entities %}
+            {{ article.entities|join(", ") }}
+          {% else %}
+            None
+          {% endif %}
+        </p>
+
+        <a href="{{ article.url }}" target="_blank" class="btn btn-outline-primary mt-auto">Read More</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Chart.js Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Sentiment Pie Chart
+  new Chart(document.getElementById('sentimentChart'), {
+    type: 'pie',
+    data: {{ sentiment_counts_data|tojson }},
+  });
+
+  // Category Bar Chart
+  const categoryData = {{ category_counts_data|tojson }};
+  const selectedCategory = "{{ selected_category_display|default('') }}";
+  categoryData.datasets[0].backgroundColor = categoryData.labels.map(label =>
+    label === selectedCategory ? '#ff6384' : '#4e73df'
+  );
+  new Chart(document.getElementById('categoryChart'), {
+    type: 'bar',
+    data: categoryData,
+    options: { responsive: true, plugins: { legend: { display: false } } }
+  });
+
+  // Source Bar Chart
+  new Chart(document.getElementById('sourceChart'), {
+    type: 'bar',
+    data: {{ source_counts_data|tojson }},
+    options: { responsive: true, plugins: { legend: { display: false } } }
+  });
+
+  // Keyword Line Chart
+  new Chart(document.getElementById('lineChart'), {
+    type: 'line',
+    data: {{ line_chart_data|tojson }},
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'top' } },
+      scales: {
+        x: { title: { display: true, text: "Date" } },
+        y: { title: { display: true, text: "Mentions" } }
+      }
+    }
+  });
+</script>
+{% endblock %}

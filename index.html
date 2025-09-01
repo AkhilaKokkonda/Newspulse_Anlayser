@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - NewsPulse{% endblock %}
+
+{% block content %}
+<div class="text-center py-5 rounded-3 shadow-sm" style="background-color: #EEF2FA;">
+    <h1 class="display-4 mb-3">
+        Stay Ahead with <span style="color: #0D1B2A;">NewsPulse</span> 🚀
+    </h1>
+    <p class="lead mb-4 text-secondary">
+        AI-powered news trend analysis to keep you informed and ahead of the curve.
+    </p>
+    
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-lg me-2" style="background-color: #0D1B2A; color: #fff;">Go to Dashboard</a>
+        <a href="{{ url_for('main.logout') }}" class="btn btn-lg" style="border: 2px solid #0D1B2A; color: #0D1B2A;">Logout</a>
+    {% else %}
+        <a href="{{ url_for('main.register') }}" class="btn btn-lg me-2" style="background-color: #0D1B2A; color: #fff;">Get Started</a>
+        <a href="{{ url_for('main.login') }}" class="btn btn-lg" style="border: 2px solid #0D1B2A; color: #0D1B2A;">Login</a>
+    {% endif %}
+</div>
+
+<div class="row mt-5 g-4 text-center">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 p-3" style="background-color: #EEF2FA;">
+            <div class="card-body">
+                <h5 class="card-title fw-bold" style="color: #0D1B2A;">📊 Real-Time Analysis</h5>
+                <p class="card-text text-muted">Analyze breaking news and detect trends using AI in real-time.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 p-3" style="background-color: #EEF2FA;">
+            <div class="card-body">
+                <h5 class="card-title fw-bold" style="color: #0D1B2A;">🔍 Topic Insights</h5>
+                <p class="card-text text-muted">Get detailed insights into trending topics across multiple sources.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 p-3" style="background-color: #EEF2FA;">
+            <div class="card-body">
+                <h5 class="card-title fw-bold" style="color: #0D1B2A;">🖥️ Custom Dashboards</h5>
+                <p class="card-text text-muted">Personalize your experience with custom dashboards and alerts.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call-to-action row -->
+<div class="text-center mt-5">
+    <h4 class="text-secondary mb-3">Start exploring trends today!</h4>
+    <a href="{{ url_for('main.register') }}" class="btn btn-lg me-2" style="background-color: #0D1B2A; color: #fff;">Join Now</a>
+    <a href="{{ url_for('main.trending') }}" class="btn btn-lg" style="border: 2px solid #0D1B2A; color: #0D1B2A;">Explore Trends</a>
+</div>
+{% endblock %}
