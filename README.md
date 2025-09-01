@@ -1,5 +1,2 @@
-# Newspulse_Anlayser
+# NewsPulse - AI News Trend Analyzer
 NewsPulse is a real-time news analyzer that fetches, visualizes, and performs sentiment analysis on trending news, helping users track news trends and insights effortlessly.
-
-
-## NewsPulse - AI News Trend Analyzer
