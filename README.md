@@ -1,22 +1,23 @@
-# NewsPulse – Real-time News Analyzer 📰  
+# 📰 NewsPulse – Real-time News Analyzer  
 
-## 🚀 About the Project
-NewsPulse is a web app that fetches trending news, analyzes sentiment, and visualizes insights with an interactive dashboard.  
+NewsPulse is a smart web app that fetches trending news, performs sentiment analysis, and visualizes insights with an interactive dashboard.  
 
-## ✨ Features
-- Real-time news fetching  
-- Sentiment analysis (positive/negative/neutral)  
-- Interactive charts for trends  
-- Responsive UI with dark/light mode  
-
-## 🛠️ Tech Stack
-- **Backend:** Flask  
-- **Frontend:** Bootstrap, HTML, CSS, JS  
-- **APIs:** Google News API / GNews  
-- **Data Analysis:** Python (NLP)  
+---
 
 ## 📂 Project Structure
+```plaintext
+newspulse/
+│-- app.py
+│-- static/
+│-- templates/
+│-- requirements.txt
+│-- README.md
 
 
-  
+# Clone the repository
+git clone https://github.com/yourusername/newspulse.git
+cd newspulse
+
+# Install dependencies
+pip install -r requirements.txt
 
