@@ -1,23 +1,8 @@
-# 📰 NewsPulse – Real-time News Analyzer  
+# 📰 NewsPulse – AI News Trend Analyzer  
 
-NewsPulse is a smart web app that fetches trending news, performs sentiment analysis, and visualizes insights with an interactive dashboard.  
-
----
-
-## 📂 Project Structure
-```plaintext
-newspulse/
-│-- app.py
-│-- static/
-│-- templates/
-│-- requirements.txt
-│-- README.md
-
-
-# Clone the repository
-git clone https://github.com/yourusername/newspulse.git
-cd newspulse
-
-# Install dependencies
-pip install -r requirements.txt
-
+## 1.Project Overview
+NewsPulse is a modern web application that analyzes trending news using AI and NLP.  
+Users can filter news by category, country, or keyword and gain insights through:  
+- Sentiment analysis  
+- Entity recognition  
+- Visual dashboards  
