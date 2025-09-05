@@ -28,36 +28,31 @@ Users can filter news by category, country, or keyword and gain insights through
 ---
 
 ## 3. Folder Structure
-```plaintext
 NewsPulse/
 │
 ├─ app/
-│	├─   init  .py
-│	├─ routes.py
-│	├─ models.py
-│	├─ nlp_utils.py
-│	├─ templates/
-| |  ├─	base.html
-| |  ├─	index.html
-| |  ├─	dashboard.html
-| |  ├─	login.html
-| |  ├─	register.html
-| |  ├─	profile.html
-| |  └─	trending.html
-| └─ static/
-|    ├─ css/
-|     └─ style.css
-|    └─ js/
-|      └─ script.js
-│	│	├─	base.html
-│	│	├─	index.html
-│	│	├─	dashboard.html
-│	│	├─	login.html
-│	│	├─	register.html
-│	│	├─	profile.html
-│	│	└─	trending.html
-
-
+│   ├─ __init__.py
+│   ├─ routes.py
+│   ├─ models.py
+│   ├─ nlp_utils.py
+│   ├─ templates/
+│   │   ├─ base.html
+│   │   ├─ index.html
+│   │   ├─ dashboard.html
+│   │   ├─ login.html
+│   │   ├─ register.html
+│   │   ├─ profile.html
+│   │   └─ trending.html
+│   └─ static/
+│       ├─ css/
+│       │   └─ style.css
+│       └─ js/
+│           └─ script.js
+│
+├─ venv/
+├─ .env
+├─ requirements.txt
+└─ run.py
 
 
 
