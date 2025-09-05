@@ -10,3 +10,6 @@ Users can filter news by category, country, or keyword and gain insights through
 - Sentiment analysis
 - Entity recognition
 - Visual dashboards
+
+
+## 2. Features
