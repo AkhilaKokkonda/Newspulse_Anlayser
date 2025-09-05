@@ -11,10 +11,11 @@ Users can filter news by category, country, or keyword and gain insights through
 - Entity recognition
 - Visual dashboards
 
+
 ---
 
 ## 2. Features
----text
+```text
 - User Authentication (Register, Login, Profile, Logout)
 - Personalized Dashboard with glassmorphic design
 - Trending News with filters (Category, Country, Keyword)
