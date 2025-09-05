@@ -44,7 +44,7 @@ NewsPulse/
 | |  ├─	register.html
 | |  ├─	profile.html
 | |  └─	trending.html
-|  └─ static/
+| └─ static/
 |    ├─ css/
 |     └─ style.css
 |    └─ js/
