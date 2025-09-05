@@ -28,6 +28,7 @@ Users can filter news by category, country, or keyword and gain insights through
 ---
 
 ## 3. Folder Structure
+```
 NewsPulse/
 │
 ├─ app/
@@ -54,7 +55,7 @@ NewsPulse/
 ├─ requirements.txt
 └─ run.py
 
-
+```
 
 
 ```
